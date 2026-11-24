@@ -1395,6 +1395,10 @@ footer{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 28px;back
             <input id="wl-subject" name="subject" type="text" autocomplete="off" placeholder="e.g. Psychology">
           </div>
         </div>
+        <div class="wl-field">
+          <label for="wl-org">University or organisation <span>optional</span></label>
+          <input id="wl-org" name="organisation" type="text" autocomplete="organization" placeholder="e.g. Imperial College London">
+        </div>
         <label class="wl-check" for="wl-test"><input type="checkbox" id="wl-test" name="testing" value="yes"><span>I’m happy to help test Nibble before it launches</span></label>
         <p class="wl-err" id="wl-err" role="alert" aria-live="polite"></p>
         <button class="btn primary wl-btn" type="submit">Join the waitlist <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button>
@@ -1427,6 +1431,7 @@ footer{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 28px;back
     <ul>
       <li>Your email address. This is the only thing you must give us.</li>
       <li>Your stage of study and subject, if you choose to tell us.</li>
+      <li>Your stage of study, subject and university or organisation, if you choose to tell us.</li>
       <li>Whether you’d like to help test Nibble, if you tick that box.</li>
       <li>Basic technical records that our hosting provider keeps to run the site securely, such as IP addresses in server logs.</li>
     </ul>
