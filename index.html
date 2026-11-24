@@ -57,14 +57,20 @@ p{margin:0}
 .nav-links{display:flex;gap:4px;margin-left:12px}
 .nav-links a{text-decoration:none;font-size:15px;color:var(--muted);padding:7px 11px;border-radius:9px}
 .nav-links a:hover{color:var(--ink);background:var(--wash)}
-.nav .btn{margin-left:auto}
+.nav-pr{margin-left:auto;text-decoration:none;font-size:15px;color:var(--muted);padding:7px 11px;border-radius:9px;white-space:nowrap}
+.nav-pr:hover{color:var(--ink);background:var(--wash)}
+.nav .btn{margin-left:-12px}
 @media (max-width:760px){.nav-links{display:none}}
+@media (max-width:420px){.nav-in{gap:12px}.nav .btn{margin-left:-4px}.nav-pr{padding:7px 8px}}
 
 /* ---------- hero ---------- */
 .hero{padding:clamp(48px,8.5vh,120px) 0 clamp(64px,8vw,104px);text-align:center;overflow:hidden}
-.h1{font-weight:800;font-size:clamp(38px,6.4vw,92px);line-height:1.04;letter-spacing:-.045em;margin:0 auto;max-width:12.5em;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.h1{font-weight:800;font-size:clamp(38px,6.4vw,92px);line-height:1.04;letter-spacing:-.045em;margin:0 auto;max-width:12.5em;display:flex;flex-direction:column;justify-content:center;align-items:stretch}
 .h1>span{display:block}
 .h1[hidden]{display:none}
+/* line 1 never wraps on its own; when "Read the right papers." is too wide it breaks after "Read" for the whole animation */
+#hA-l1{white-space:nowrap}
+#hA:not(.brk) #hA-br{display:none}
 /* A · cross out */
 .swap{display:inline-grid;vertical-align:bottom;overflow:hidden;white-space:nowrap;padding:0 .05em;margin:0 -.05em}
 .swap>span{grid-area:1/1;justify-self:start}
@@ -491,6 +497,69 @@ body:has(.legal:target) main{display:none}
 .legal a{color:var(--ink)}
 .fill{background:var(--hl-soft);border-radius:4px;padding:0 .25em;font-family:var(--f-mono);font-size:.9em;color:var(--hl-ink)}
 
+/* ---------- pricing + organisations: separate views, shown when targeted ---------- */
+.pg{display:none;background:var(--wash);padding:clamp(32px,5vw,64px) 0 clamp(64px,8vw,112px);scroll-margin-top:64px}
+.pg:target{display:block}
+body:has(.pg:target) main{display:none}
+body:has(#pricing:target) .nav-pr{color:var(--ink);background:var(--wash)}
+#pricing{background:var(--paper)}
+.pr-head{margin-top:clamp(8px,2vw,24px)}
+.pr-head h1{font-size:clamp(40px,5.8vw,80px);font-weight:600;letter-spacing:-.035em;line-height:1.02;max-width:14em}
+.bill{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-top:clamp(40px,6vw,88px)}
+.seg{display:inline-flex;padding:4px;border-radius:999px;background:var(--wash)}
+.seg button{font:600 16px var(--f-ui);color:var(--muted);background:transparent;border:0;border-radius:999px;padding:9px 22px;min-height:44px;cursor:pointer;transition:background-color .2s ease,color .2s ease,box-shadow .2s ease}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px rgba(27,25,48,.12)}
+.save{font-size:16px;font-weight:600;color:#0A6640;white-space:nowrap}
+.plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.4vw,20px);margin-top:20px;align-items:stretch}
+.plan{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:clamp(22px,2.2vw,32px)}
+.plan.pop{background:var(--wash);border-color:var(--wash)}
+.p-for{font-size:14.5px;color:var(--muted);line-height:1.35}
+.p-name{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:6px}
+.plan h2{font-size:clamp(24px,2vw,28px);font-weight:700;letter-spacing:-.025em;line-height:1.15}
+.p-pop{display:inline-block;background:var(--hl);color:var(--ink);font:600 12.5px/1.35 var(--f-ui);border-radius:999px;padding:1px 10px;white-space:nowrap}
+.p-amt{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 8px;margin-top:14px}
+.p-amt b{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,2.4vw,34px);letter-spacing:-.03em;line-height:1.1;white-space:nowrap;font-variant-numeric:tabular-nums}
+.p-amt span{font-size:15px;color:var(--muted);white-space:nowrap}
+.p-bill{font-size:14.5px;color:var(--muted);margin-top:4px;white-space:nowrap}
+.p-tag{font-size:16.5px;color:var(--ink);margin-top:16px;line-height:1.45}
+.p-cta{justify-content:center;width:100%;min-height:46px;margin-top:22px;border-radius:999px;font-size:16px;font-weight:600;cursor:pointer}
+.plan .btn.ghost{background:var(--wash);border-color:transparent}
+.plan .btn.ghost:hover{background:#E7E8F0}
+.p-feat{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:11px}
+.p-feat li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;align-items:start;font-size:15.5px;line-height:1.4}
+.p-feat .ic{width:17px;height:17px;color:var(--ink);stroke-width:2.2;margin-top:2px}
+.p-msg{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;margin-top:20px;background:var(--paper);border:1px solid var(--line-2);border-radius:16px;padding:16px 20px;font-size:16px}
+.p-msg[hidden]{display:none}
+.p-msg b{font-weight:600}
+.p-fn{font-size:14.5px;color:var(--muted);margin-top:16px}
+@supports (grid-template-rows:subgrid){.plan{display:grid;grid-template-rows:subgrid;grid-row:span 7;row-gap:0;align-items:start}}
+@media (max-width:1120px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.plans{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:420px){.seg button{padding:9px 18px}}
+.pfaq{margin-top:clamp(56px,7vw,104px)}
+.pfaq .faq-list{margin-top:clamp(24px,3vw,36px)}
+.cmp{margin-top:clamp(56px,7vw,104px)}
+.cmp h2,.pfaq h2{font-size:clamp(30px,3.4vw,44px);font-weight:800;letter-spacing:-.04em;line-height:1.05}
+.cmp>p{font-size:clamp(17px,1.5vw,19px);color:var(--muted);margin-top:14px}
+.cmp-box{position:relative;margin-top:clamp(24px,3vw,36px);background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow-x:auto}
+.cmp table{width:100%;border-collapse:collapse;font-size:16.5px}
+.cmp th,.cmp td{padding:22px 24px;border-top:1px solid var(--line);text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cmp thead th{border-top:0;background:#F8F8FB;font-weight:700;padding-block:20px}
+.cmp th:first-child{text-align:left;width:38%;font-weight:600;white-space:normal}
+.cmp td .ic{width:18px;height:18px;stroke-width:2.2;vertical-align:-3px}
+.cmp .no{color:var(--faint)}
+.cmp>.cmp-fn{font-size:14.5px;color:var(--muted);margin-top:16px}
+.cmp thead th:first-child{font-weight:700}
+@media (max-width:640px){.cmp table{font-size:14px;min-width:560px}.cmp th,.cmp td{padding:14px 12px}.cmp th:first-child{width:auto;min-width:9.5em}.cmp th:first-child{position:sticky;left:0;z-index:1;background:var(--paper);box-shadow:1px 0 0 var(--line)}.cmp thead th:first-child{background:#F8F8FB}}
+.org-in{min-height:min(62vh,560px);display:grid;place-content:center;justify-items:center;text-align:center;gap:16px;padding:clamp(24px,4vw,48px) 0}
+.org-bite{width:84px;height:84px;color:var(--ink);transform:rotate(-8deg);margin-bottom:8px}
+.org-k{font:700 13px var(--f-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.org-in h1{font-size:clamp(44px,6vw,80px);font-weight:800;letter-spacing:-.045em;line-height:1}
+.org-in>p:not(.org-k){font-size:clamp(17px,1.5vw,19px);color:var(--muted);max-width:30em}
+.org-in .cta-row{margin-top:12px}
+.fa a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+
 /* ---------- story: index emphasis, highlight, four-step strip ---------- */
 /* student-style annotations in the story */
 .nt-hl{background:linear-gradient(transparent 50%,var(--hl) 50%,var(--hl) 92%,transparent 92%);padding:0 .1em;font-weight:500}
@@ -844,7 +913,10 @@ body:has(.legal:target) main{display:none}
 /* ---------- footer ---------- */
 footer{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 28px;background:var(--wash)}
 .foot{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:32px 40px}
-.f-brand{display:grid;gap:14px;align-content:start;justify-items:start}
+.f-brand{display:grid;gap:14px;grid-template-rows:auto auto 1fr;justify-items:start}
+/* email sits at the bottom of the brand column, level with the last line of the other columns */
+.f-mail{align-self:end;font-size:14.5px;color:var(--muted);text-decoration:none}
+.f-mail:hover{color:var(--ink)}
 .f-brand .tag{color:var(--muted);font-size:15.5px;max-width:20em}
 .f-col{display:grid;gap:9px;align-content:start;font-size:14.5px}
 .f-col h4{margin:0 0 4px;font-family:var(--f-display);font-size:15px;font-weight:700;letter-spacing:-.01em}
@@ -921,6 +993,7 @@ footer{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 28px;back
       <a href="#get">What you get</a>
       <a href="#faq">FAQ</a>
     </nav>
+    <a class="nav-pr" href="#pricing">Pricing</a>
     <a class="btn primary sm" href="#waitlist" data-signup>Join the waitlist</a>
   </div>
 </header>
@@ -930,7 +1003,7 @@ footer{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 28px;back
 <!-- ============ HERO ============ -->
 <section class="hero" id="hero">
   <div class="wrap">
-    <h1 class="h1" id="hA"><span id="hA-l1">Read <span class="swap" id="hA-sw"><span class="xo" id="hA-xo">every paper<i class="strk"></i><i class="strk s2"></i></span><span class="nw" id="hA-nw">the right papers</span></span>.</span><span id="hA-l2"><span class="mark" id="hA-mk">Properly.</span></span></h1>
+    <h1 class="h1" id="hA"><span id="hA-l1">Read <br id="hA-br"><span class="swap" id="hA-sw"><span class="xo" id="hA-xo">every paper<i class="strk"></i><i class="strk s2"></i></span><span class="nw" id="hA-nw">the right papers</span></span>.</span><span id="hA-l2"><span class="mark" id="hA-mk">Properly.</span></span></h1>
     <p class="hsub">For your long-term research, drop in all the papers you’ve collected.<br>Nibble tells you how to read each one, then plans it all around your project.</p>
     <div class="cta-row">
       <a class="btn primary" href="#waitlist" data-signup>Join the waitlist <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -1360,7 +1433,7 @@ footer{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 28px;back
       <details class="fq"><summary>Does it replace Zotero or EndNote?<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="fa"><p>No. Import from them and keep your library where it is.</p></div></details>
       <details class="fq"><summary>Which subjects does it work for?<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="fa"><p>Any subject where you read papers. You tell Nibble your field and your background, and screening takes both into account.</p></div></details>
       <details class="fq"><summary>When will I get access?<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="fa"><p>We’re opening Nibble to students in small groups while we test it. Join the waitlist and we’ll email you when it’s your turn.</p></div></details>
-      <details class="fq"><summary>What does it cost?<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="fa"><p>When your access opens, you’ll start with a free trial. Plans and pricing are still being finalised, and we’ll tell you before anything changes.</p></div></details>
+      <details class="fq"><summary>What does it cost?<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="fa"><p>When your access opens, you’ll start with a free trial. See the details <a href="#pricing">here</a>.</p></div></details>
     </div>
   </div>
 </section>
@@ -1503,22 +1576,156 @@ footer{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 28px;back
 </section>
 
 
+<!-- ============ PRICING (separate view) ============ -->
+<section class="pg" id="pricing" aria-labelledby="pricing-h">
+  <div class="wrap">
+    <a class="legal-back" href="#top"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>Back to Nibble</a>
+    <header class="pr-head">
+      <h1 id="pricing-h">Make every paper count</h1>
+    </header>
+    <div class="bill">
+      <div class="seg" role="group" aria-label="Billing period">
+        <button type="button" data-bill="m" aria-pressed="true">Monthly</button>
+        <button type="button" data-bill="y" aria-pressed="false">Yearly</button>
+      </div>
+      <span class="save">Save up to 20% yearly</span>
+    </div>
+    <div class="plans">
+    <article class="plan free" aria-labelledby="pl-free">
+      <p class="p-for">Try Nibble</p>
+      <div class="p-name"><h2 id="pl-free">Free</h2></div>
+      <p class="p-amt"><b>£0</b><span>/month</span></p>
+      <p class="p-bill">Free forever · no billing</p>
+      <p class="p-tag">Find your starting point. No subscription needed.</p>
+      <button class="btn ghost p-cta" type="button" data-plan="Free">Explore Free</button>
+      <ul class="p-feat">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>1 active research project</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>10 papers screened / month</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Basic reading pathway</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Reading progress tracking</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>PDF &amp; DOI import</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Community support</span></li>
+      </ul>
+    </article>
+    <article class="plan" aria-labelledby="pl-premium">
+      <p class="p-for">For students</p>
+      <div class="p-name"><h2 id="pl-premium">Premium</h2></div>
+      <p class="p-amt"><b data-m="£4.99" data-y="£3.99">£4.99</b><span>/month</span></p>
+      <p class="p-bill" data-m="Billed monthly" data-y="£47.88 billed annually">Billed monthly</p>
+      <p class="p-tag">A more confident start to your research.</p>
+      <button class="btn ghost p-cta" type="button" data-plan="Premium">Discuss Premium</button>
+      <ul class="p-feat">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>3 active research projects</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>50 papers screened / month</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Personalised reading pathways</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Reading-depth recommendations</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>PDF and DOI import</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Reading progress tracking</span></li>
+      </ul>
+    </article>
+    <article class="plan pop" aria-labelledby="pl-advanced">
+      <p class="p-for"><span class="p-pop">Most popular</span></p>
+      <div class="p-name"><h2 id="pl-advanced">Advanced</h2></div>
+      <p class="p-amt"><b data-m="£10.99" data-y="£8.79">£10.99</b><span>/month</span></p>
+      <p class="p-bill" data-m="Billed monthly" data-y="£105.48 billed annually">Billed monthly</p>
+      <p class="p-tag">Go deeper into your literature, with less busywork.</p>
+      <button class="btn primary p-cta" type="button" data-plan="Advanced">Discuss Advanced</button>
+      <ul class="p-feat">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Everything in Premium</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>15 active research projects</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>300 papers screened / month</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Contrasting paper discovery</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Adaptive reading pathways</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Exportable research plans</span></li>
+      </ul>
+    </article>
+    <article class="plan" aria-labelledby="pl-max">
+      <p class="p-for">For research-intensive work</p>
+      <div class="p-name"><h2 id="pl-max">Max</h2></div>
+      <p class="p-amt"><b data-m="£19.99" data-y="£15.99">£19.99</b><span>/month</span></p>
+      <p class="p-bill" data-m="Billed monthly" data-y="£191.88 billed annually">Billed monthly</p>
+      <p class="p-tag">More room for projects, papers, and exploration.</p>
+      <button class="btn ghost p-cta" type="button" data-plan="Max">Discuss Max</button>
+      <ul class="p-feat">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Everything in Advanced</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Unlimited active projects*</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>1,000 papers screened / month</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>User-directed research branching</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Longer research history</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Priority support</span></li>
+      </ul>
+    </article>
+    </div>
+    <div class="p-msg" id="p-msg" role="status" hidden><span><b id="p-msg-plan"></b> isn’t open yet. Join the waitlist and we’ll email you when Nibble opens for you.</span><a class="btn primary sm" href="#waitlist">Join the waitlist</a></div>
+    <p class="p-fn">*Unlimited refers to the number of active projects, not unlimited AI usage.</p>
+    <section class="cmp" aria-labelledby="cmp-h">
+      <h2 id="cmp-h">Compare plans</h2>
+      <p>Compare Free, Premium, Advanced and Max at a glance.</p>
+      <div class="cmp-box">
+        <table>
+          <thead><tr><th scope="col">Feature</th><th scope="col">Free</th><th scope="col">Premium</th><th scope="col">Advanced</th><th scope="col">Max</th></tr></thead>
+          <tbody>
+          <tr><th scope="row">Monthly price</th><td>£0.00</td><td>£4.99</td><td>£10.99</td><td>£19.99</td></tr>
+          <tr><th scope="row">Active projects</th><td>1</td><td>3</td><td>15</td><td>Unlimited*</td></tr>
+          <tr><th scope="row">Papers screened / month</th><td>10</td><td>50</td><td>300</td><td>1,000</td></tr>
+          <tr><th scope="row">Personalised reading pathway</th><td>Basic</td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+          <tr><th scope="row">Reading progress</th><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+          <tr><th scope="row">Contrasting paper discovery</th><td><span class="no"><span aria-hidden="true">—</span><span class="sr">Not included</span></span></td><td><span class="no"><span aria-hidden="true">—</span><span class="sr">Not included</span></span></td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+          <tr><th scope="row">Exportable research plans</th><td><span class="no"><span aria-hidden="true">—</span><span class="sr">Not included</span></span></td><td><span class="no"><span aria-hidden="true">—</span><span class="sr">Not included</span></span></td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+          <tr><th scope="row">Research branching</th><td><span class="no"><span aria-hidden="true">—</span><span class="sr">Not included</span></span></td><td><span class="no"><span aria-hidden="true">—</span><span class="sr">Not included</span></span></td><td><span class="no"><span aria-hidden="true">—</span><span class="sr">Not included</span></span></td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+          <tr><th scope="row">Priority support</th><td><span class="no"><span aria-hidden="true">—</span><span class="sr">Not included</span></span></td><td><span class="no"><span aria-hidden="true">—</span><span class="sr">Not included</span></span></td><td><span class="no"><span aria-hidden="true">—</span><span class="sr">Not included</span></span></td><td><svg class="ic" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cmp-fn">*Unlimited refers to the number of active projects, not unlimited AI usage. Plans, limits and prices may change before launch.</p>
+    </section>
+    <section class="pfaq" aria-labelledby="pfaq-h">
+      <p class="kicker">FAQ</p>
+      <h2 id="pfaq-h">Questions about pricing</h2>
+      <div class="faq-list">
+        <details class="fq"><summary>Is Nibble available yet?<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="fa"><p>Not yet. Nibble is still in testing and hasn’t launched. We’re trying it out with small groups of students first, so the plans, prices, limits and features on this page may change before launch.</p></div></details>
+        <details class="fq"><summary>What is included in Free?<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="fa"><p>One active research project, up to 10 papers screened a month, a basic reading pathway, reading progress tracking, and PDF and DOI import.</p></div></details>
+        <details class="fq"><summary>Is Nibble’s paid product available to purchase?<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="fa"><p>No, not yet. There’s no checkout or subscription for now, and the plan buttons don’t take payment. We’ll tell you before any paid plan goes live.</p></div></details>
+        <details class="fq"><summary>How does annual billing work?<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="fa"><p>With yearly billing, you pay for 12 months in one go and save up to 20%. The price on each plan shows what that works out to per month.</p></div></details>
+        <details class="fq"><summary>Will every listed feature be available?<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="fa"><p>Not all of them at launch. We’re still building Nibble, so some features may arrive later or change along the way, and we’ll keep this page up to date.</p></div></details>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ============ ORGANISATIONS (separate view) ============ -->
+<section class="pg" id="organisations" aria-labelledby="org-h">
+  <div class="wrap">
+    <a class="legal-back" href="#top"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>Back to Nibble for students</a>
+    <div class="org-in">
+      <svg class="org-bite" aria-hidden="true"><use href="#bite"/></svg>
+      <p class="org-k">Nibble for organisations</p>
+      <h1 id="org-h">Coming soon</h1>
+      <p>We’re working on a version of Nibble for organisations. Until then, students can join the waitlist.</p>
+      <div class="cta-row"><a class="btn primary" href="#top">See Nibble for students</a><a class="btn ghost" href="#waitlist">Join the waitlist</a></div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap foot">
     <div class="f-brand">
       <a class="logo" href="#top" aria-label="Back to top"><svg aria-hidden="true"><use href="#bite"/></svg><b>Nibble</b></a>
       <p class="tag">Nibble through the literature,<br>one bite at a time.</p>
+      <a class="f-mail" href="mailto:nibbleforstudents@gmail.com">nibbleforstudents@gmail.com</a>
     </div>
     <div class="f-col">
       <h4>Product</h4>
       <a href="#why">Why Nibble</a>
       <a href="#get">What you get</a>
       <a href="#faq">FAQ</a>
+      <a href="#pricing">Pricing</a>
       <a href="#waitlist">Join the waitlist</a>
     </div>
     <div class="f-col">
-      <h4>Pricing</h4>
-      <p>Your access starts with a free trial. Paid plans are still being decided, and you’ll hear from us before anything changes.</p>
+      <h4>Nibble</h4>
+      <a href="#top">For students</a>
+      <a href="#organisations">For organisations</a>
     </div>
     <div class="f-col">
       <h4>Privacy</h4>
@@ -1539,7 +1746,15 @@ footer{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 28px;back
 
   /* ================= Headline: cross out ================= */
   const hA = $("#hA");
-  let hTok = 0, hBusy = false;
+  let hTok = 0, hBusy = false, hPending = false, hDirty = false;
+  /* false while the pricing or legal views hide the main page */
+  const shownA = () => hA.getClientRects().length > 0;
+  /* in the final state, break after "Read" only if line 1 can't fit the headline width */
+  function fitA() {
+    hA.classList.remove("brk");
+    const r = document.createRange(); r.selectNodeContents($("#hA-l1"));
+    if (r.getBoundingClientRect().width > hA.clientWidth + 1) hA.classList.add("brk");
+  }
   function finalA() {
     const xo = $("#hA-xo"), nw = $("#hA-nw"), sw = $("#hA-sw"), l1 = $("#hA-l1"), l2 = $("#hA-l2");
     xo.style.display = "none"; xo.classList.remove("struck");
@@ -1552,10 +1767,7 @@ footer{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 28px;back
   async function playA(tok) {
     const h = $("#hA"), xo = $("#hA-xo"), nw = $("#hA-nw"), sw = $("#hA-sw"), l1 = $("#hA-l1"), l2 = $("#hA-l2"), mk = $("#hA-mk");
     hBusy = true;
-    const done = () => { l1.style.whiteSpace = ""; hBusy = false; };
-    /* keep line 1 on one line during the swap when its final form fits on one line */
-    const lh = parseFloat(getComputedStyle(h).fontSize) * 1.5;
-    if (l1.getBoundingClientRect().height < lh) l1.style.whiteSpace = "nowrap";
+    const done = () => { if (tok !== hTok) return; hBusy = false; if (hDirty) { hDirty = false; lockA(); } };
     mk.style.transition = "none"; mk.style.setProperty("--k", 0);
     xo.classList.remove("struck");
     xo.style.transition = "none"; xo.style.display = "inline-block"; xo.style.opacity = 1; xo.style.transform = "";
@@ -1590,11 +1802,39 @@ footer{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 28px;back
     await sleep(700); done();
   }
 
-  function lockA() { hA.style.height = ""; finalA(); hA.style.height = hA.offsetHeight + "px"; }
-  function startA() { hTok++; lockA(); if (!reduce) playA(hTok); }
+  function lockA() { hA.style.height = ""; finalA(); fitA(); hA.style.height = hA.offsetHeight + "px"; }
+  function startA() {
+    hTok++; hBusy = false;
+    /* page opened on #pricing, #privacy or #terms: play when the main page is first shown */
+    if (!shownA()) { hPending = true; finalA(); hA.style.height = ""; return; }
+    hPending = false; lockA();
+    if (!reduce) playA(hTok);
+  }
+  /* re-measure the final layout, never mid-animation and never while the main page is hidden */
+  function relayA() {
+    if (!shownA()) return;
+    if (hPending) return startA();
+    if (hBusy) { hDirty = true; return; }
+    lockA();
+  }
   let rT;
-  window.addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(() => { if (!hBusy) { hA.style.height = ""; hA.style.height = hA.offsetHeight + "px"; } }, 150); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(startA); else startA();
+  window.addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(relayA, 150); });
+  window.addEventListener("hashchange", () => {
+    /* leaving for the pricing or legal view: stop at the end state; it is re-measured on the way back */
+    if (!shownA()) { if (hBusy) { hTok++; hBusy = false; finalA(); } hA.style.height = ""; return; }
+    relayA();
+  });
+  window.addEventListener("pageshow", e => { if (e.persisted) relayA(); });
+  /* wait for the headline font itself: document.fonts.ready can resolve before it has loaded (Safari),
+     and measuring with the fallback font locks the wrong size. Give up after 2.5 s; if it arrives later, start again. */
+  function headFont() {
+    if (!document.fonts || !document.fonts.load) return Promise.resolve();
+    let late = false;
+    const f = document.fonts.load('800 80px "Bricolage Grotesque"', "Read every paper the right papers. Properly.").catch(() => {});
+    f.then(() => { if (late) { if (hBusy) startA(); else relayA(); } });
+    return Promise.race([f, sleep(2500).then(() => { late = true; })]);
+  }
+  headFont().then(startA);
 
   /* ================= Step 3: cycling reading depth ================= */
   (function depthCycler() {
@@ -1955,6 +2195,27 @@ footer{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 28px;back
     });
   }
 })();
+</script>
+<script>
+{
+  /* pricing: billing toggle and plan buttons */
+  const segBtns = Array.from(document.querySelectorAll(".seg [data-bill]"));
+  const setBill = k => {
+    segBtns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.bill === k)));
+    document.querySelectorAll("#pricing [data-m]").forEach(el => { el.textContent = el.dataset[k]; });
+  };
+  segBtns.forEach(b => b.addEventListener("click", () => setBill(b.dataset.bill)));
+  const msg = document.getElementById("p-msg"), msgPlan = document.getElementById("p-msg-plan");
+  document.querySelectorAll("#pricing [data-plan]").forEach(b => b.addEventListener("click", () => {
+    msgPlan.textContent = b.dataset.plan;
+    msg.hidden = false;
+  }));
+  /* the hero sizes itself from the page width; re-measure when the main page comes back into view */
+  const mainEl = document.querySelector("main");
+  window.addEventListener("hashchange", () => {
+    if (mainEl && getComputedStyle(mainEl).display !== "none") window.dispatchEvent(new Event("resize"));
+  });
+}
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "92db0c1269424c029e188fa8ee3518f2"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
